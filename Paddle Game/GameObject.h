@@ -8,8 +8,8 @@ protected:
 	virtual void InitPosition();
 public:
 	int x, y;
-	int width, height;
-	int movex, movey;
+	int w, h;
+	int vx, vy;
 
 	void SetPosition(int, int);
 	void SetVelocity(int, int);
@@ -30,5 +30,6 @@ public:
 	~GameObject();
 
 	friend int CheckCollision(GameObject, GameObject);
+	float SweptAABB(GameObject b1, GameObject b2, float& normalx, float& normaly);
 };
 

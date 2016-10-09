@@ -17,15 +17,15 @@ void Paddle::InitPosition() {
 		x = G_ScreenWidth - 66;
 	}
 	y = G_ScreenHeight / 2;
-	this->height = FrameHeight;
-	this->width = FrameWidth;
+	this->h = FrameHeight;
+	this->w = FrameWidth;
 }
 void Paddle::ConstrainPosition() {
 	if (y <= 0) {
 		y = 0;
 	}
-	if (y + height >= G_ScreenHeight) {
-		y = G_ScreenHeight - height;
+	if (y + h >= G_ScreenHeight) {
+		y = G_ScreenHeight - h;
 	}
 }
 void Paddle::MoveDown() {

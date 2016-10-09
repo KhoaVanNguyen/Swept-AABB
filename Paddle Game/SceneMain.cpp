@@ -51,7 +51,6 @@ void SceneMain::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 void SceneMain::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
 	ball.Move(); 
-	
 	int isScore = ball.IsScore();
 	if (isScore == 2) {
 		score2++;

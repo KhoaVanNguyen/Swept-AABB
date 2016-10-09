@@ -11,7 +11,6 @@ void GTexture::Init(char* _fileName, int cols, int rows, int count)
 	FileName = _fileName;
 	this->Load();
 }
-
 GTexture::GTexture( const GTexture &ctexture)
 {		
 	this->FileName=ctexture.FileName;
