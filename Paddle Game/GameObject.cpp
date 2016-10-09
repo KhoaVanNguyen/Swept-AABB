@@ -190,7 +190,6 @@ float GameObject::SweptAABB(GameObject b1, GameObject b2, float &normalx, float&
 				direction = NORMAL_DIRECTION::BOTTOM;
 			}
 		}
-		
 		OnCollision(direction);
 		// return the time of collision
 		return entryTime;

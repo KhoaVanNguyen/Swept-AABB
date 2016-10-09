@@ -31,7 +31,7 @@
 
 
 #define PADDLE_SPEED 10
-#define BALL_SPEED 40
+#define BALL_SPEED 60
 
 //
 //GLOBAL VARIANT
