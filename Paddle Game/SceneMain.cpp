@@ -1,6 +1,34 @@
 
 #include "SceneMain.h"
+#include <fstream>
 int start = 0;
+#include <fstream>
+ofstream myfile("trace.txt");
+
+
+void KeepTrack(float value1, float value2) {
+
+	if (myfile.is_open())
+	{
+		myfile << "normalx = " << value1 << "\n";
+		myfile << "normaly = " << value2 << "\n";
+		//myfile.close();
+	}
+	else {
+		//MessageBox(hwnd, "Error initializing the mouse", "Error", MB_OK);
+	}
+}
+void KeepTrack(float value1) {
+
+	if (myfile.is_open())
+	{
+		myfile << "collisiontime = " << value1 << "\n";
+		//myfile.close();
+	}
+	else {
+		//MessageBox(hwnd, "Error initializing the mouse", "Error", MB_OK);
+	}
+}
 void SceneMain::CountTime() {
 		if (GetTickCount() - start > 1000) {
 			totalTime++;
@@ -40,14 +68,12 @@ void SceneMain::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t)
 		gui.DrawLabel(to_string(score2), rScore2, DT_RIGHT);
 		gui.DrawLabel(to_string(totalTime) + " s", rTimer, DT_CENTER);
 	}
-
 	ball.Draw();
 	leftPaddle.Draw();
 	rightPaddle.Draw();
 	//rightPaddle.y += Mouse_Y();
 	G_SpriteHandler->End();
 }
-
 void SceneMain::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
 	ball.Move(); 
@@ -71,16 +97,18 @@ void SceneMain::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	//  constraint the paddle to the screen's edges
 	leftPaddle.ConstrainPosition();
 	rightPaddle.ConstrainPosition();
+	
+	
+	float normalx, normaly;
+	float collisiontimeL, collisiontimeR;
+	
+	collisiontimeL = ball.SweptAABB(ball, leftPaddle, normalx, normaly);
+	collisiontimeR = ball.SweptAABB(ball, rightPaddle, normalx, normaly);
+	if (normalx != 0 || normaly != 0) {
+		KeepTrack(normalx, normaly);
+		KeepTrack(collisiontimeL);
+	}
 
-	//see if ball hit the paddle
-	if ((CheckCollision(ball, leftPaddle) == 2) || (CheckCollision(ball, rightPaddle) == 2))
-	{
-		ball.SetVelocity(ball.VelX()*(-1), ball.VelY());
-	}
-	else if ((CheckCollision(ball, leftPaddle) == 1) || (CheckCollision(ball, rightPaddle) == 1))
-	{
-		ball.SetVelocity(ball.VelX(), ball.VelY()*(-1));
-	}
 }
 void SceneMain::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 {

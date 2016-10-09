@@ -94,7 +94,7 @@ int CheckCollision(GameObject obj1, GameObject obj2)
 	}
 	return 0;
 }
-float GameObject::SweptAABB(GameObject b1, GameObject b2, float& normalx, float& normaly) {
+float GameObject::SweptAABB(GameObject b1, GameObject b2, float &normalx, float&normaly) {
 	float xInvEntry, yInvEntry;
 	float xInvExit, yInvExit;
 
@@ -166,11 +166,13 @@ float GameObject::SweptAABB(GameObject b1, GameObject b2, float& normalx, float&
 			{
 				normalx = 1.0f;
 				normaly = 0.0f;
+				direction = NORMAL_DIRECTION::RIGHT;
 			}
 			else
 			{
 				normalx = -1.0f;
 				normaly = 0.0f;
+				direction = NORMAL_DIRECTION::LEFT;
 			}
 		}
 		else
@@ -179,15 +181,38 @@ float GameObject::SweptAABB(GameObject b1, GameObject b2, float& normalx, float&
 			{
 				normalx = 0.0f;
 				normaly = 1.0f;
+				direction = NORMAL_DIRECTION::TOP;
 			}
 			else
 			{
 				normalx = 0.0f;
 				normaly = -1.0f;
+				direction = NORMAL_DIRECTION::BOTTOM;
 			}
 		}
-
+		
+		OnCollision(direction);
 		// return the time of collision
 		return entryTime;
+	}
+
+}
+void GameObject::OnCollision(NORMAL_DIRECTION normalDirection) {
+	switch (normalDirection)
+	{
+	case NORMAL_DIRECTION::LEFT:
+		this->vx *= -1;
+		break;
+	case NORMAL_DIRECTION::RIGHT:
+		this->vx *= -1;
+		break;
+	case NORMAL_DIRECTION::TOP:
+		this->vy *= -1;
+		break;
+	case NORMAL_DIRECTION::BOTTOM:
+		this->vy *= -1;
+		break;
+	default:
+		break;
 	}
 }

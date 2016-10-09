@@ -31,12 +31,17 @@
 
 
 #define PADDLE_SPEED 10
-#define BALL_SPEED 6
+#define BALL_SPEED 40
 
 //
 //GLOBAL VARIANT
 //
-
+enum class NORMAL_DIRECTION {
+	LEFT = 0,
+	RIGHT = 1,
+	TOP = 2,
+	BOTTOM = 3,
+};
 extern int G_CurForm;
 extern int G_NextForm;
 

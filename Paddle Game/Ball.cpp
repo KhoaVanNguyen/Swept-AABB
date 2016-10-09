@@ -58,5 +58,5 @@ void Ball::ResetPosition()
 {
 	x = G_ScreenWidth / 2;
 	y = G_ScreenHeight / 2;
-	vy *= -1;
+	vy *= 1;
 }
